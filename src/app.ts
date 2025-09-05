@@ -16,6 +16,10 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+app.get("/recipes/new", (req, res) => {
+  res.render("new-recipe");
+});
+
 app.listen(port, () => {
   return console.log(`listening at port: ${port}`);
 });

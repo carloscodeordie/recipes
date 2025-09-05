@@ -22,10 +22,6 @@ html {
 body {
   margin: 0;
   background: linear-gradient(180deg, #1f1c2c 0%, #1f1c2c 100%);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
 }
 
 .header {
@@ -41,6 +37,13 @@ body {
   letter-spacing: 1rem;
 }
 
+.main-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 .home-section {
   flex: 1;
   display: flex;
@@ -50,7 +53,7 @@ body {
   gap: 1rem;
 }
 
-.home-section button {
+.home-section a {
   padding: 0.85rem 2rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -63,4 +66,6 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: 20rem;
   margin: 0 0 3rem 0;
+  text-align: center;
+  text-decoration: none;
 }
