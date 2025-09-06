@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Create Recipe</title>
+    <meta charset="UTF-8" />
+    <title>Create new recipe</title>
     <link rel="stylesheet" href="/css/styles.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"
@@ -9,14 +10,77 @@
       crossorigin="anonymous"
       defer
     ></script>
+    <style>
+      svg {
+        border: 2px solid #444;
+        background: #f9f9f9;
+      }
+      rect {
+        fill: lightblue;
+        stroke: #333;
+        stroke-width: 2;
+        cursor: move;
+      }
+      circle {
+        fill: white;
+        stroke: #333;
+        stroke-width: 2;
+      }
+      .connection-point {
+        r: 8;
+        cursor: crosshair;
+        fill: white;
+      }
+      line {
+        stroke: #555;
+        stroke-width: 2;
+        cursor: pointer;
+      }
+      text {
+        user-select: none;
+      }
+      .selected-line {
+        stroke: red;
+        stroke-width: 3;
+      }
+      .selected-box rect {
+        stroke: red;
+        stroke-width: 3;
+      }
+      .start-circle {
+        fill: #4caf50;
+      } /* green */
+      .end-circle {
+        fill: #f44336;
+      } /* red */
+      .circle-label {
+        fill: white;
+        font-weight: bold;
+        font-size: 14px;
+        pointer-events: none;
+      }
+    </style>
   </head>
-
   <body>
     <div class="header">
-      <h1>Recipes</h1>
+      <h1>Create new recipe</h1>
     </div>
-    <section class="main-section">
-      <div class="create-recipe-section">Test</div>
-    </section>
+    <div class="create-recipe-container">
+      <div>
+        <div class="menu">
+          <button id="addProcessButton">Processes</button>
+          <button id="saveRecipeButton">Save recipe</button>
+        </div>
+      </div>
+      <div class="canvas-wrapper">
+        <svg id="canvas">
+          <g id="connections"></g>
+          <g id="connection-labels"></g>
+          <g id="boxes"></g>
+        </svg>
+      </div>
+      <div id="panel"></div>
+    </div>
+    <script src="/js/create-recipe.js"></script>
   </body>
 </html>

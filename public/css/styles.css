@@ -22,6 +22,7 @@ html {
 body {
   margin: 0;
   background: linear-gradient(180deg, #1f1c2c 0%, #1f1c2c 100%);
+  height: 100%;
 }
 
 .header {
@@ -44,7 +45,7 @@ body {
   min-height: 100dvh;
 }
 
-.home-section {
+.home-container {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -53,7 +54,7 @@ body {
   gap: 1rem;
 }
 
-.home-section a {
+.home-container a {
   padding: 0.85rem 2rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -68,4 +69,54 @@ body {
   margin: 0 0 3rem 0;
   text-align: center;
   text-decoration: none;
+}
+
+.create-recipe-container .menu {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 1rem;
+}
+
+.create-recipe-container .menu button {
+  padding: 0.85rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #3a7bd5, #3a6073);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 15rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.create-recipe-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px); /* adjust depending on header height */
+}
+
+.create-recipe-container .canvas-wrapper {
+  flex: 1;
+}
+
+.create-recipe-container svg {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* higher than overlay */
+  padding: 20px;
 }

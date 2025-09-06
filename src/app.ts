@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/recipes/new", (req, res) => {
+  res.setHeader("HX-Redirect", "/recipes/new");
   res.render("new-recipe");
 });
 
