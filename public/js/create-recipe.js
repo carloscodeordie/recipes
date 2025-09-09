@@ -2,7 +2,6 @@ const svg = document.getElementById("canvas");
 const boxesGroup = document.getElementById("boxes");
 const connectionsGroup = document.getElementById("connections");
 const labelsGroup = document.getElementById("connection-labels");
-const addBoxBtn = document.getElementById("addProcessButton");
 
 let selected = null; // dragging
 let offset = { x: 0, y: 0 };
@@ -23,7 +22,7 @@ function getMousePosition(evt) {
 }
 
 // CREATE BOX OR CIRCLE
-function createBox(
+function createProcess(
   x,
   y,
   fixed = false,
@@ -337,26 +336,30 @@ function labelLine(evt) {
 }
 
 // BUTTONS
-addBoxBtn.addEventListener("click", () => {
-  const customLabel = prompt("Enter a label for the new box:", "New Box");
-  createBox(
-    100 + boxCounter * 40,
-    100 + boxCounter * 30,
-    false,
-    false,
-    null,
-    customLabel
-  );
-});
+const displayPanel = () => {
+  const panel = document.getElementById("panel");
+  panel.classList.add("show");
+};
+
+const hidePanel = () => {
+  const panel = document.getElementById("panel");
+  panel.classList.remove("show");
+};
+
+const addProcessToCanvas = () => {
+  const name = prompt("Process name:", "New Process");
+  createProcess(100, 100, false, false, null, name);
+  hidePanel();
+};
 
 // Initial setup
-createBox(50, svg.height.baseVal.value / 2 - 30, true, true, "startCircle");
-createBox(
+createProcess(50, svg.height.baseVal.value / 2 - 30, true, true, "startCircle");
+createProcess(
   svg.width.baseVal.value - 90,
   svg.height.baseVal.value / 2 - 30,
   true,
   true,
   "endCircle"
 );
-// createBox(200, 80, false, false, null, "Step A");
-// createBox(400, 200, false, false, null, "Step B");
+// createProcess(200, 80, false, false, null, "Step A");
+// createProcess(400, 200, false, false, null, "Step B");

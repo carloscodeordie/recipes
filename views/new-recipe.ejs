@@ -68,7 +68,7 @@
     <div class="create-recipe-container">
       <div>
         <div class="menu">
-          <button id="addProcessButton">Processes</button>
+          <button hx-on:click="displayPanel()">Processes</button>
           <button id="saveRecipeButton">Save recipe</button>
         </div>
       </div>
@@ -79,7 +79,27 @@
           <g id="boxes"></g>
         </svg>
       </div>
-      <div id="panel"></div>
+      <div id="panel" class="panel">
+        <div class="panel-header">
+          <h2>Add process</h2>
+          <button
+            hx-on:click="hidePanel()"
+            class="close-button"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="panel-actions">
+          <button
+            hx-on:click="addProcessToCanvas()"
+            class="add-button"
+            aria-label="New process"
+          >
+            New
+          </button>
+        </div>
+      </div>
     </div>
     <script src="/js/create-recipe.js"></script>
   </body>
