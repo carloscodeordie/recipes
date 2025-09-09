@@ -1,5 +1,5 @@
 const svg = document.getElementById("canvas");
-const boxesGroup = document.getElementById("boxes");
+const processGroup = document.getElementById("processes");
 const connectionsGroup = document.getElementById("connections");
 const labelsGroup = document.getElementById("connection-labels");
 
@@ -21,81 +21,39 @@ function getMousePosition(evt) {
   };
 }
 
-// CREATE BOX OR CIRCLE
-function createProcess(
-  x,
-  y,
-  fixed = false,
-  isCircle = false,
-  id = null,
-  labelText = null
-) {
-  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+// Create a new process
+function createProcess(x, y, id = null, labelText = null) {
+  const process = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
   if (!id) id = "box" + ++boxCounter;
-  g.setAttribute("id", id);
-  g.setAttribute("transform", `translate(${x},${y})`);
+
+  process.setAttribute("id", id);
+  process.setAttribute("transform", `translate(${x},${y})`);
 
   let shape;
-  if (isCircle) {
-    shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    shape.setAttribute("r", 30);
-    shape.setAttribute("cx", 30);
-    shape.setAttribute("cy", 30);
+  shape = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  shape.setAttribute("r", 80);
 
-    if (id === "startCircle") {
-      shape.classList.add("start-circle");
-    } else if (id === "endCircle") {
-      shape.classList.add("end-circle");
-    }
+  process.appendChild(shape);
 
-    g.appendChild(shape);
-
-    const label = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
-    );
-    label.setAttribute("x", 30);
-    label.setAttribute("y", 35);
-    label.setAttribute("text-anchor", "middle");
-    label.classList.add("circle-label");
-    label.textContent = id === "startCircle" ? "Start" : "End";
-    g.appendChild(label);
-  } else {
-    shape = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    shape.setAttribute("width", "100");
-    shape.setAttribute("height", "60");
-    shape.setAttribute("rx", "8");
-    shape.setAttribute("ry", "8");
-    g.appendChild(shape);
-
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    text.setAttribute("x", "50");
-    text.setAttribute("y", "35");
-    text.setAttribute("text-anchor", "middle");
-    text.textContent = labelText || id;
-    g.appendChild(text);
-  }
+  const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  label.setAttribute("y", 5);
+  label.setAttribute("text-anchor", "middle");
+  label.setAttribute("fill", "black");
+  label.classList.add("process-label");
+  label.textContent = labelText;
+  process.appendChild(label);
 
   // connection points
-  if (isCircle) {
-    if (id === "startCircle") {
-      createConnectionPoint(g, 60, 30, "output");
-    } else if (id === "endCircle") {
-      createConnectionPoint(g, 0, 30, "input");
-    }
-  } else {
-    createConnectionPoint(g, 0, 30, "input");
-    createConnectionPoint(g, 100, 30, "output");
-  }
+  createConnectionPoint(process, -80, 3, "input");
+  createConnectionPoint(process, 80, 3, "output");
 
-  boxesGroup.appendChild(g);
+  processGroup.appendChild(process);
 
-  if (!fixed) {
-    g.addEventListener("mousedown", startDrag);
-    g.addEventListener("click", selectBox);
-  }
+  process.addEventListener("mousedown", startDrag);
+  process.addEventListener("click", selectBox);
 
-  return g;
+  return process;
 }
 
 function createConnectionPoint(parent, cx, cy, type) {
@@ -307,7 +265,7 @@ document.addEventListener("keydown", (evt) => {
         }
         return true;
       });
-      boxesGroup.removeChild(selectedBox);
+      processGroup.removeChild(selectedBox);
       selectedBox = null;
     }
   }
@@ -348,18 +306,17 @@ const hidePanel = () => {
 
 const addProcessToCanvas = () => {
   const name = prompt("Process name:", "New Process");
-  createProcess(100, 100, false, false, null, name);
+
+  // Call API to create the new process
+
+  // Display the created process on the UI
+  createProcess(100, 100, null, name);
+
+  // Hide the process panel
   hidePanel();
 };
 
 // Initial setup
-createProcess(50, svg.height.baseVal.value / 2 - 30, true, true, "startCircle");
-createProcess(
-  svg.width.baseVal.value - 90,
-  svg.height.baseVal.value / 2 - 30,
-  true,
-  true,
-  "endCircle"
-);
-// createProcess(200, 80, false, false, null, "Step A");
-// createProcess(400, 200, false, false, null, "Step B");
+const initRecipeCanvas = () => {};
+
+initRecipeCanvas();

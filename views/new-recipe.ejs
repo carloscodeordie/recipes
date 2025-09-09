@@ -47,18 +47,6 @@
         stroke: red;
         stroke-width: 3;
       }
-      .start-circle {
-        fill: #4caf50;
-      } /* green */
-      .end-circle {
-        fill: #f44336;
-      } /* red */
-      .circle-label {
-        fill: white;
-        font-weight: bold;
-        font-size: 14px;
-        pointer-events: none;
-      }
     </style>
   </head>
   <body>
@@ -76,7 +64,37 @@
         <svg id="canvas">
           <g id="connections"></g>
           <g id="connection-labels"></g>
-          <g id="boxes"></g>
+          <g id="processes"></g>
+          <g id="connectors">
+            <g id="start" transform="translate(50, 250)">
+              <circle r="30" cx="30" cy="30" class="connector-circle"></circle>
+              <text x="30" y="35" text-anchor="middle" class="connector-label">
+                Start
+              </text>
+              <circle
+                hx-on:mousedown="startConnection(event)"
+                r="8"
+                cx="60"
+                cy="30"
+                data-type="output"
+                class="connection-point"
+              ></circle>
+            </g>
+            <g id="end" transform="translate(1400, 250)">
+              <circle r="30" cx="30" cy="30" class="connector-circle"></circle>
+              <text x="30" y="35" text-anchor="middle" class="connector-label">
+                End
+              </text>
+              <circle
+                hx-on:mousedown="startConnection(event)"
+                r="8"
+                cx="0"
+                cy="30"
+                data-type="input"
+                class="connection-point"
+              ></circle>
+            </g>
+          </g>
         </svg>
       </div>
       <div id="panel" class="panel">
@@ -92,7 +110,8 @@
         </div>
         <div class="panel-actions">
           <button
-            hx-on:click="addProcessToCanvas()"
+            hx-post="/processes"
+            hx-on::after-request="addProcessToCanvas()"
             class="add-button"
             aria-label="New process"
           >
