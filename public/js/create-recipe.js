@@ -305,8 +305,6 @@ const hidePanel = () => {
 };
 
 const addProcessToCanvas = () => {
-  const name = prompt("Process name:", "New Process");
-
   // Call API to create the new process
 
   // Display the created process on the UI
@@ -315,6 +313,13 @@ const addProcessToCanvas = () => {
   // Hide the process panel
   hidePanel();
 };
+
+document.body.addEventListener("htmx:afterSwap", function (evt) {
+  if (evt.detail.target.id === "processes") {
+    let svg = document.getElementById("canvas");
+    svg.innerHTML = svg.innerHTML;
+  }
+});
 
 // Initial setup
 const initRecipeCanvas = () => {};

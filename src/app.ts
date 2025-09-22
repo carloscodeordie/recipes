@@ -1,11 +1,14 @@
 import express from "express";
+import { v4 as uuid } from "uuid";
 import { Recipe } from "./interfaces/recipe";
-const path = require("path");
+import { Process } from "./interfaces/process";
 
+const path = require("path");
 const app = express();
 const port = 3000;
 
-export let recipe: Recipe | null = null;
+let recipe: Recipe | null = null;
+const recipes: Recipe[] = [];
 
 app.use(express.static("public"));
 app.use(
@@ -20,20 +23,43 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-// Display New Recipe page
-app.get("/recipes/new", (req, res) => {
+// Create a new recipe
+app.post("/recipes", (req, res) => {
   // Initialize the recipe as empty (create new recipe on the database)
-  recipe = {};
+  recipe = {
+    id: uuid(),
+    name: "New recipe",
+    processes: [],
+  };
+  recipes.push(recipe);
 
-  res.setHeader("HX-Redirect", "/recipes/new");
-  res.render("new-recipe");
+  res.setHeader("HX-Redirect", "/recipe");
+  res.redirect(`/recipe/${recipe.id}`);
+});
+
+app.get("/recipe/:recipeId", (req, res) => {
+  // Get the recipe id from request params
+  const id = req.params.recipeId;
+
+  // Get the recipe from cache
+  const recipe = recipes.find((recipe) => recipe.id === id);
+
+  res.setHeader("HX-Redirect", `/recipe/${id}`);
+  res.render("recipe", {
+    recipe,
+  });
 });
 
 app.post("/processes", (req, res) => {
   const { name } = req.body;
-  // Set the recipe name (update created recipe)
-  recipe.name = name;
-  res.send();
+  // Create a new process (create process on database)
+  const process: Process = {
+    id: uuid(),
+    name: name,
+  };
+  res.render("workflow", {
+    process,
+  });
 });
 
 app.listen(port, () => {

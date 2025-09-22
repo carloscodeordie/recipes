@@ -61,14 +61,30 @@
         </div>
       </div>
       <div class="canvas-wrapper">
-        <svg id="canvas">
+        <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
           <g id="connections"></g>
           <g id="connection-labels"></g>
           <g id="processes"></g>
           <g id="connectors">
-            <g id="start" transform="translate(50, 250)">
-              <circle r="30" cx="30" cy="30" class="connector-circle"></circle>
-              <text x="30" y="35" text-anchor="middle" class="connector-label">
+            <g
+              id="start"
+              transform="translate(50, 250)"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                r="30"
+                cx="30"
+                cy="30"
+                class="connector-circle"
+                xmlns="http://www.w3.org/2000/svg"
+              ></circle>
+              <text
+                x="30"
+                y="35"
+                text-anchor="middle"
+                class="connector-label"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 Start
               </text>
               <circle
@@ -78,11 +94,28 @@
                 cy="30"
                 data-type="output"
                 class="connection-point"
+                xmlns="http://www.w3.org/2000/svg"
               ></circle>
             </g>
-            <g id="end" transform="translate(1400, 250)">
-              <circle r="30" cx="30" cy="30" class="connector-circle"></circle>
-              <text x="30" y="35" text-anchor="middle" class="connector-label">
+            <g
+              id="end"
+              transform="translate(1400, 250)"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                r="30"
+                cx="30"
+                cy="30"
+                class="connector-circle"
+                xmlns="http://www.w3.org/2000/svg"
+              ></circle>
+              <text
+                x="30"
+                y="35"
+                text-anchor="middle"
+                class="connector-label"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 End
               </text>
               <circle
@@ -92,6 +125,7 @@
                 cy="30"
                 data-type="input"
                 class="connection-point"
+                xmlns="http://www.w3.org/2000/svg"
               ></circle>
             </g>
           </g>
@@ -111,7 +145,11 @@
         <div class="panel-actions">
           <button
             hx-post="/processes"
-            hx-on::after-request="addProcessToCanvas()"
+            hx-target="#processes"
+            hx-swap="beforeend"
+            hx-vals='{
+              "name": "New process"
+            }'
             class="add-button"
             aria-label="New process"
           >
